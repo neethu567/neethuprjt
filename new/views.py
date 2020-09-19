@@ -46,11 +46,11 @@ def vote(request,question_id):
     try:
         selected_choice=question.choice_set.get(pk=request.POST['choice'])
     except(KeyError,Choice.DoesNotExist):
-        return render(request,'now/detail.html',{
+        return render(request,'new/detail.html',{
             'question':question,
             'error_message':"you dint select a choice.",
         })
     else:
         selected_choice.votes+=1
         selected_choice.save()
-        return HttpResponseRedirect(reverse('new:result',args=(question.id,)))
+        return HttpResponseRedirect(reverse('new:results',args=(question.id,)))
